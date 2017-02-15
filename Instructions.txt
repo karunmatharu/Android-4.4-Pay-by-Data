@@ -1,0 +1,85 @@
+/*
+ * Karun Matharu
+ * ksm113@ic.ac.uk
+ */
+
+
+This archive contains the complete Android Pay-by-Data operating system source code developed as part of the 'Android Implementation of the Pay-by-Data Model' Project
+
+Please visit http://source.android.com/ for detailed information on the AOSP
+
+The bulk of the code is in the PBD System Service found in:
+frameworks/base/services/java/com/android/server/PbdService.java
+
+The Pay-by-Data API classes are found in:
+device/sample/frameworks/Pbd/java/com/example/android/pbd/
+
+
+This directory also includes a testing application called PbdTest. The source code of the app can be edited to test Pbd Methods.
+
+Before building, edit the values for ipAddress, username, socketAddress and socketPort in PbdService.java
+
+The values are to represent the following
+
+ipAddress - the IP Address of the Authentication Server
+username - the user's desired username (used for authentication requests)
+socketAddress - The IP Address of the Data Collection Service
+socketPort - The port the Data Collection Service is accessed on.
+
+To build the system , first ensure your machine has the appropriate dependencies. Follow the instructions here:
+https://source.android.com/source/initializing.html
+
+To build for an emulator:
+Enter the following commands in terminal in the root directory of the Android Source Code. These are explained in detail at:
+https://source.android.com/source/building-running.html
+
+bash
+source build/envsetup.sh
+lunch aosp_arm-eng
+make update-api
+make
+make com.example.android.pbd
+make
+
+(if using any apps, these need to be added to the build by 'make <app package name>)
+
+Once built, the build system would have created an directory ./out where the output files are stored.
+
+to run the emulator, enter the command
+emulator &
+
+
+To build for a device. The lunch command needs to be changed according to the device you are building for. Details can be found here:
+https://source.android.com/source/building-devices.html
+
+Once built, ensure the device's bootloader is unlocked.
+Then enter the following commands from the terminal at the Android source root directory
+
+adb reboot bootloader
+fastboot -w flashall
+
+Note: the -w flag is only required the first time the image is being flashed. It clears all data on the device. Subseqent flashed can be issues with the command 'fastboot flashall'
+
+
+To build an SDK, initialize the environment if not done already:
+
+source build/envsetup.sh
+
+Then issue the following commands at termainal:
+
+lunch sdk-eng
+make update-api
+make sdk
+
+The SDK will be output to the ./out directory
+
+
+
+
+
+
+
+
+
+
+
